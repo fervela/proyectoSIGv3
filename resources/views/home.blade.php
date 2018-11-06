@@ -35,6 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @yield('style')
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -255,7 +256,7 @@ desired effect
                 <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Taxi</span></a></li>
                 <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Chofer</span></a></li>
                 <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Solicitudes</span></a></li>
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Visualizacion de Mapa</span></a></li>
+                <li class="active"><a href="{{ route('visualizarMapa.index') }}"><i class="fa fa-link"></i> <span>Visualizacion de Mapa</span></a></li>
                 <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Bitacora</span></a></li>
 
                 <!--<li class="treeview">
@@ -283,7 +284,6 @@ desired effect
         <section class="content-header">
             <h1>
                 Bienvenido a la aplicacion web para escritorio
-
             </h1>
 
         </section>
@@ -294,6 +294,7 @@ desired effect
             <!--------------------------
               | Your Page Content Here |
               -------------------------->
+            @yield('content')
 
         </section>
         <!-- /.content -->
@@ -397,6 +398,7 @@ desired effect
 <script src="js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="js/adminlte.min.js"></script>
+@yield('script')
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
