@@ -82,4 +82,8 @@ class TaxiController extends Controller
     {
         //
     }
+
+    public function setToken(Request $request){
+        return ["estado" => "hola perros"];
+    }
 }

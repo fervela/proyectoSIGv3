@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Ubicacion;
 use Illuminate\Http\Request;
-
+use Illuminate\Database\QueryException;
 class UbicacionController extends Controller
-{
+{   
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +37,14 @@ class UbicacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = Ubicacion::create($request->all());
+            return ["estado" => "okey","data" => $data->id];
+        } catch (QueryException $e) {
+            // dd($e->getMessage());
+            return ["estado" => "alex", "msg" => mb_convert_encoding($e->getMessage(), 'UTF-8', 'UTF-8')];
+        }
+        
     }
 
     /**
@@ -44,9 +53,15 @@ class UbicacionController extends Controller
      * @param  \App\Ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Ubicacion $ubicacion)
+    public function show($id)
     {
-        //
+        try {
+            $data = Ubicacion::findOrFail($id);
+            return ["estado" => "okey","data" => $data];
+        } catch (QueryException $e) {
+            // dd($e->getMessage());
+            return ["estado" => "alex", "msg" => mb_convert_encoding($e->getMessage(), 'UTF-8', 'UTF-8')];
+        }
     }
 
     /**
@@ -67,7 +82,7 @@ class UbicacionController extends Controller
      * @param  \App\Ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ubicacion $ubicacion)
+    public function update(Request $request,  $id)
     {
         //
     }
@@ -78,8 +93,19 @@ class UbicacionController extends Controller
      * @param  \App\Ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ubicacion $ubicacion)
+    public function destroy($id)
     {
         //
+    }
+
+    public function showAll()
+    {
+        try {
+            $data = Ubicacion::All();
+            return ["estado" => "okey","data" => $data];
+        } catch (QueryException $e) {
+            // dd($e->getMessage());
+            return ["estado" => "alex", "msg" => mb_convert_encoding($e->getMessage(), 'UTF-8', 'UTF-8')];
+        }    
     }
 }
