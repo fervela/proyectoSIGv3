@@ -87,11 +87,20 @@
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<label>Propietario</label>	
 			<select name="idp" class="form-control">
-					@foreach($users as $u)
+					@foreach($propietario as $u)
 						<option value="{{$u->id}}">{{$u->name}}</option>
 					@endforeach
 				</select>
 		</div>
+		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+		<label>Chofer</label>	
+			<select name="idc" class="form-control">
+					@foreach($chofer as $c)
+						<option value="{{$c->id}}">{{$c->name}}</option>
+					@endforeach
+				</select>
+		</div>
+		
 		<div clas
 			<div class="form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>

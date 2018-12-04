@@ -15,7 +15,8 @@
 			</div>
 			@endif
 
-			{!!Form::open(array('url'=>'Taxi','method'=>'POST','autocomplete'=>'off')) !!}
+			{!!Form::open(array('url'=>'Taxi','method'=>'POST','enctype'=>'multipart/form-data','autocomplete'=>'off')) !!}
+
 			{!!Form::token()!!}
 
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
@@ -39,7 +40,7 @@
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">	
 			<div class="form-group">
 				<label class="ci">anio</label>
-				<input type="text" name="anio" class="form-control" placeholder="fnacimiento..">
+				<input type="date" name="anio" class="form-control" placeholder="fnacimiento..">
 			</div>
 			</div>
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">	
@@ -69,21 +70,35 @@
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">	
 			<div class="form-group">
 				<label class="ci">parrilla</label>
-				<input type="text" name="parilla" class="form-control" placeholder="nlicencia..">
+				<select name="parilla">
+					<option value="S">S</option>
+					<option value="N">N</option>
+				</select>
 			</div>
-			</div>
+		</div>
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">	
 			<div class="form-group">
 				<label class="ci">aire</label>
-				<input type="text" name="aire" class="form-control" placeholder="categoria..">
+				<select name="aire">
+					<option value="S">S</option>
+					<option value="N">N</option>
+				</select>
 			</div>
-			</div>
+		</div>
 		
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<label>Propietario</label>	
 			<select name="idp" class="form-control">
-					@foreach($users as $u)
+					@foreach($propietario as $u)
 						<option value="{{$u->id}}">{{$u->name}}</option>
+					@endforeach
+				</select>
+		</div>
+		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+		<label>Chofer</label>	
+			<select name="idc" class="form-control">
+					@foreach($chofer as $c)
+						<option value="{{$c->id}}">{{$c->name}}</option>
 					@endforeach
 				</select>
 		</div>

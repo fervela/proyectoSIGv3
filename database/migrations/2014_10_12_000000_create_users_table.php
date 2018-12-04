@@ -15,13 +15,14 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('tipo');
+            $table->string('tipo')->nullable();
+            $table->string('ci')->nullable();
             $table->text('tokenfirebase')->nullable();
             $table->date('fechanacimiento')->nullable();
-            $table->char('sexo',1);
+            $table->char('sexo',1)->nullable();
             $table->string('direccion')->nullable();
             $table->string('telefono')->nullable();
             $table->string('imei')->nullable();
@@ -29,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->char('categoria',1)->nullable();
             $table->date('fechavencimiento')->nullable();
             $table->text('foto')->nullable();
+            $table->string('condicion')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

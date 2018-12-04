@@ -20,6 +20,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('visualizarMapa','VisualizarMapa');
+Route::resource('Taxi','TaxiController');
+Route::resource('Chofer','ChoferController');
+Route::resource('Propietario','PropietarioController');
+
 
 Route::get('/servicio',function(){
     // phpinfo();
