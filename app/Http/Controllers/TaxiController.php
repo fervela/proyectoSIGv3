@@ -28,7 +28,7 @@ class TaxiController extends Controller
             $taxis=DB::table('taxis as t')
             ->select('*')
             ->where('t.placa','LIKE','%'.$query.'%')
-            ->where('t.estado','=','1')
+            ->where('t.condicion','=','1')
             ->orderBy('t.id','desc')
             ->paginate(7);
             return view('Taxi.index',["taxis"=>$taxis,
@@ -67,7 +67,7 @@ class TaxiController extends Controller
         $Taxi->parilla=$request->get('parilla');
         $Taxi->aire=$request->get('aire');
         $Taxi->propietario=$request->get('idp');
-        $Taxi->estado='1';
+        $Taxi->condicion='1';
 
         if($request->hasFile('imagen')){
             $file=$request->file('imagen');
@@ -137,7 +137,7 @@ class TaxiController extends Controller
     public function destroy($id)
     {
         $Taxi=Taxi::findOrFail($id);
-        $Taxi->estado='0';
+        $Taxi->condicion='0';
         $Taxi->update();
         return Redirect::to('Taxi');
     }
