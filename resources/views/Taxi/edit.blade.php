@@ -39,7 +39,7 @@
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">	
 			<div class="form-group">
 				<label class="ci">anio</label>
-				<input type="text" name="anio" value=" {{$Taxi->anio}}" class="form-control" placeholder="fnacimiento..">
+				<input type="date" name="anio" value=" {{$Taxi->anio}}" class="form-control" placeholder="fnacimiento..">
 			</div>
 			</div>
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">	

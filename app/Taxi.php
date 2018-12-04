@@ -11,7 +11,7 @@ class Taxi extends Model
     protected $dates = ['delete_at'];
     // protected $table = 'taxis';
     protected $fillable = [
-        'placa', 'marca', 'modelo', 'anio', 'color', 'tipo', 'nasiento', 'npuerta', 'parilla', 'aire', 'foto', 'propietario', 'estado'
+        'placa', 'marca', 'modelo', 'anio', 'color', 'tipo', 'nasiento', 'npuerta', 'parilla', 'aire', 'foto', 'propietario', 'estado', 'condicion'
     ];
     public function ubicaciones(){
     	return $this->hasMany('App\Ubicacion','taxi');

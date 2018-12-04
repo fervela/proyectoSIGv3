@@ -67,6 +67,7 @@ class TaxiController extends Controller
         $Taxi->parilla=$request->get('parilla');
         $Taxi->aire=$request->get('aire');
         $Taxi->propietario=$request->get('idp');
+        $Taxi->estado = 'F';
         $Taxi->condicion='1';
 
         if($request->hasFile('imagen')){
@@ -117,7 +118,7 @@ class TaxiController extends Controller
         $Taxi->placa=$request->get('placa');
         $Taxi->marca=$request->get('marca');
         $Taxi->modelo=$request->get('modelo');
-        $Taxi->anio=$request->get('fnamarcamiento');
+        $Taxi->anio=$request->get('anio');
         $Taxi->color=$request->get('color');
         $Taxi->tipo=$request->get('tipo');
         $Taxi->nasiento=$request->get('nasiento');

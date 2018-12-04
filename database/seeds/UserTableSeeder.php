@@ -26,7 +26,8 @@ class UserTableSeeder extends Seeder
     		'nlicencia' => null,
     		'categoria' => 'A',
     		'fechavencimiento' => '2018-12-11',
-    		'foto' => 'luis.jpg'
+    		'foto' => 'luis.jpg',
+            'condicion' => null
 		]);
 
 		User::create([
@@ -44,7 +45,8 @@ class UserTableSeeder extends Seeder
     		'nlicencia' => null,
     		'categoria' => 'A',
     		'fechavencimiento' => '2018-12-11',
-    		'foto' => 'luis.jpg'
+    		'foto' => 'luis.jpg',
+            'condicion' => null
 		]);
 
 		User::create([
@@ -62,7 +64,8 @@ class UserTableSeeder extends Seeder
     		'nlicencia' => null,
     		'categoria' => 'A',
     		'fechavencimiento' => '2018-12-11',
-    		'foto' => 'luis.jpg'
+    		'foto' => 'luis.jpg',
+            'condicion' => null
 		]);
     }
 }
