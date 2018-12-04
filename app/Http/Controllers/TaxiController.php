@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
@@ -148,11 +149,23 @@ class TaxiController extends Controller
     //SERVICIOS PARA LA APP 
     //vladimir
     public function updateEstadoChofer(Request $request){
+
         $idusuario = $request->idusuario;
         $estado = $request->estadoC;
-         $consulta=DB::select("UPDATE chofer_taxi 
-                                SET estado='$estado'
-                                WHERE chofer=$idusuario");
+
+        $consulta=DB::select("SELECT taxis.id 
+                                FROM taxis,users,chofer_taxi
+                                WHERE chofer_taxi.taxi = taxis.id AND
+                                      chofer_taxi.chofer = users.id AND
+                                      users.id = $idusuario");
+        $idtaxi = -1;
+        foreach ($consulta as $key => $row) {
+            $idtaxi = $row->id;
+        }
+
+        $taxi = Taxi::find($idtaxi);
+        $taxi->estado = $estado;
+        $taxi->update();
 
         return response()->json(["respuesta"=>"ok","estadoChofer"=>$estado,"update"=>$consulta]);
         
