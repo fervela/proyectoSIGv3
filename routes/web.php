@@ -21,3 +21,24 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('visualizarMapa','VisualizarMapa');
 
+Route::get('/servicio',function(){
+    // phpinfo();
+    // ini_set('soap.wsdl_cache_enabled',0);
+    // ini_set('soap.wsdl_cache_ttl',0);
+    $opts = array(
+        'ssl' => array('ciphers'=>'RC4-SHA', 'verify_peer'=>false, 'verify_peer_name'=>false)
+    );
+    $params = array ('encoding' => 'UTF-8', 'verifypeer' => false, 'verifyhost' => false, 'soap_version' => SOAP_1_2, 'trace' => 1, 'exceptions' => 1, "connection_timeout" => 180, 'stream_context' => stream_context_create($opts) );
+    // $url = "http://190.171.244.211:8080/WebSPedirTaxi/wsPT.asmx?WSDL";
+    $url = "http://190.171.244.211:8080/WebSPedirTaxi/wsPT.asmx?WSDL";
+    // $url = "http://www.webservicex.net/globalweather.asmx?WSDL";
+   try{
+        $client = new SoapClient($url,$params);
+        dd($client->PTPRO_obtenerPropietario());
+    }
+    catch(SoapFault $fault) {
+        dd($fault);
+    }
+    // return $client->PTCHO_obtenerChofer(); 
+});
+
