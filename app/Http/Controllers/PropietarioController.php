@@ -38,7 +38,7 @@ class PropietarioController extends Controller
         $Users->name=$request->get('name');
         $Users->ci=$request->get('ci');
         $Users->email=$request->get('email');
-        $Users->password=$request->get('ci');
+        $Users->password=bcrypt($request->get('ci'));
         $Users->tipo='P';
         $Users->fechanacimiento=$request->get('fnacimiento');
         $Users->sexo=$request->get('sexo');
