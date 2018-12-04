@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {	
-    	User:create([
+    	User::create([
     		'name'=> 'Luis Yerko',
     		'email' => 'luis@gmail.com',
     		'password' => 123456,
@@ -28,7 +28,7 @@ class UserTableSeeder extends Seeder
     		'foto' => 'luis.jpg'
 		]);
 
-		User:create([
+		User::create([
     		'name'=> 'Alex',
     		'email' => 'alex@gmail.com',
     		'password' => 123456,
@@ -45,7 +45,7 @@ class UserTableSeeder extends Seeder
     		'foto' => 'luis.jpg'
 		]);
 
-		User:create([
+		User::create([
     		'name'=> 'La jefa',
     		'email' => 'lajefa@gmail.com',
     		'password' => 123456,
