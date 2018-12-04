@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/registrarUbicacion','UbicacionController@store');
 Route::get('/registrarUbicacion/{id}','UbicacionController@show');
 Route::get('/registrarUbicacion/','UbicacionController@showAll');
+Route::get('/getTaxis','VisualizarMapa@showTaxiStatus');

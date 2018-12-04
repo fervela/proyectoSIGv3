@@ -81,4 +81,13 @@ class VisualizarMapa extends Controller
     {
         //
     }
+
+    public function showTaxiStatus(){
+        //Traer los datos
+        return [
+            ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)],
+            ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)],
+            ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)]
+        ];
+    }
 }
