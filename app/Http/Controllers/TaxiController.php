@@ -86,4 +86,17 @@ class TaxiController extends Controller
     public function setToken(Request $request){
         return ["estado" => "hola perros"];
     }
+
+    //SERVICIOS PARA LA APP 
+    //vladimir
+    public function updateEstadoChofer(Request $request){
+        $idusuario = $request->idusuario;
+        $estado = $request->estadoC;
+         $consulta=DB::select("UPDATE chofer_taxi 
+                                SET estado='$estado'
+                                WHERE chofer=$idusuario");
+
+        return response()->json(["respuesta"=>"ok","estadoChofer"=>$estado,"update"=>$consulta]);
+        
+    }
 }

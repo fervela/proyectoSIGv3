@@ -108,4 +108,81 @@ class UbicacionController extends Controller
             return ["estado" => "alex", "msg" => mb_convert_encoding($e->getMessage(), 'UTF-8', 'UTF-8')];
         }    
     }
+
+    //SERVICIOS PARA LA APP ByAlex
+
+    //ACTUALIZAR UBICAION DEL TAXO
+    public function regUbicacionTaxi(Request $request){
+
+        $idusuario = $request->idusuario;
+        $latitud = $request->latitud;
+        $longitud = $request->longitud;
+
+        $consulta = DB::select("SELECT taxis.id,chofer_taxi.estado
+                                FROM users,chofer_taxi,taxis
+                                WHERE chofer_taxi.taxi = taxis.id AND
+                                      chofer_taxi.chofer = users.id AND
+                                                                    
+                                      users.id = $idusuario ");//chofer_taxi.fechafin > CURDATE() AND
+        
+        $id = 0;
+        $estado = 'O';
+        foreach ($consulta as $key => $row) {
+            $id = $row->id;
+            $estado = $row->estado;
+        }
+
+        $ubicacion_taxi = new Ubicacion();
+        $ubicacion_taxi->latitud = $latitud;
+        $ubicacion_taxi->longitud = $longitud;
+        $ubicacion_taxi->taxi = $id;
+        $ubicacion_taxi->velocidad = "50km/h";
+        $ubicacion_taxi->save();
+
+        if($estado === 'O'){
+            $consulta = DB::select("SELECT users.*
+                                    FROM solicitud_taxi,solicituds,users
+                                    WHERE solicituds.id = solicitud_taxi.solicitud AND
+                                          solicituds.pasajero = users.id AND
+                                          solicitud_taxi.taxi = $id");
+                $token_pasajero = '';
+            foreach ($consulta as $key => $row) {
+                $token_pasajero = $row->tokenfirebase;
+            }
+
+            $url = 'https://fcm.googleapis.com/fcm/send';
+
+
+            $fields = array('to' => $token_pasajero ,
+               'notification' => array(
+                'body' => 'Bienvenido Alex',
+                'title' => 'Alex Dominguez',
+                ),
+               'data' => array(
+                'latChofer' => $latitud,'lngChofer' => $longitud));
+
+              define('GOOGLE_API_KEY', 'AIzaSyCNnbFGd4lcF-V9b45IWsWpYav5faI3dJI');
+
+              $headers = array(
+                      'Authorization:key='.GOOGLE_API_KEY,
+                      'Content-Type: application/json'
+              );
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));         
+
+            $result = curl_exec($ch);
+            if($result === false)
+                die('Curl failed ' . curl_error());
+            curl_close($ch);
+
+        }
+
+
+        return response()->json(["respuesta" => "ok"]);
+        
+    }
 }
