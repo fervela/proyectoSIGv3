@@ -11,6 +11,6 @@ class Ubicacion extends Model
     ];
 
     public function taxi(){
-    	return $this->belongsTo('App\Taxi');
+    	return $this->belongsTo('App\Taxi','taxi','id');
     }
 }

@@ -42,18 +42,34 @@
     });
   }
 
+  function Eliminar(){
+    if(markers.length){
+      markers.forEach ( e => {
+        google.maps.event.clearListeners(e,'click');
+        e.setMap(null);
+      });
+    }
+    markers = [];
+  }
+
   function getData(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+          var dato = JSON.parse(this.responseText);
+          Eliminar();
+          console.log(dato);
+          dato.forEach( e => {
+            console.log(e);
+            putMarkerOnMap(e.position, e.icono, e.estado);
+          });
         }
     };
     xmlhttp.open("GET", "{{ asset('api/getTaxis') }}", true);
     xmlhttp.send();
   }
 
-  // setInterval(getData, 4000);
+  setInterval(getData, 4000);
 
   //BORRAR los eventos antes de traer los datos del mapa
   //var listenerHandle = google.maps.event.addListener(map, 'bounds_changed', function(){...});

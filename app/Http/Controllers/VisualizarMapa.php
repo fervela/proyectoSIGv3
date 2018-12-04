@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Ubicacion;
 use App\Taxi;
+use App\User;
+use App\Solicitud;
 class VisualizarMapa extends Controller
 {
     /**
@@ -85,14 +87,26 @@ class VisualizarMapa extends Controller
 
     public function showTaxiStatus(){
         $taxi = Taxi::all();
-        dd($taxi);
         $dato = array();
         foreach ($taxi as $item) {
+            $estado= '';
+            $icono = '';
+            if($item->estado == 'O'){
+                $estado = 'Ocupado';
+                $icono = asset('/images/taxi-ocupado.png');
+            }else if($item->estado == 'D'){
+                $estado = 'Disponible';
+                $icono = asset('/images/taxi-libre.png');
+            }else if($item->estado == 'F'){
+                $estado = 'Fuera de servicio';
+                $icono = asset('/images/taxi-fuera.png');
+            }
+
+            $ubi = $item->ubicaciones()->orderBy('created_at','desc')->limit(1)->get();
+            if(count($ubi)){
+                $dato[] = array('taxi'=> asset("images/autos/$item->foto"), 'icono' => $icono, "estado"=> $estado, "position"=>array('lat'=> $ubi[0]->latitud, 'lng' => $ubi[0]->longitud));
+            }
         }
-        return [
-            ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)],
-            ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)],
-            ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)]
-        ];
+        return $dato;
     }
 }
