@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Ubicacion;
+use App\Taxi;
 class VisualizarMapa extends Controller
 {
     /**
@@ -83,7 +84,11 @@ class VisualizarMapa extends Controller
     }
 
     public function showTaxiStatus(){
-        //Traer los datos
+        $taxi = Taxi::all();
+        dd($taxi);
+        $dato = array();
+        foreach ($taxi as $item) {
+        }
         return [
             ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)],
             ["position"=> array("lat"=>-17.782698, "lng"=>-63.164771)],

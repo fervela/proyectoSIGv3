@@ -34,7 +34,7 @@ Route::get('/servicio',function(){
     // $url = "http://www.webservicex.net/globalweather.asmx?WSDL";
    try{
         $client = new SoapClient($url,$params);
-        dd($client->PTPRO_obtenerPropietario());
+        // $client->PTPRO_obtenerPropietario();
     }
     catch(SoapFault $fault) {
         dd($fault);
