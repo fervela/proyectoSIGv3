@@ -8,6 +8,9 @@
 	#map{
 		height: 100vh;
 	}
+  .probando{
+    color:red;
+  }
 </style>
 @endsection
 @section('content')
@@ -17,12 +20,44 @@
 @section('script')
 <script>
   var map;
+  var infowindow;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 8
+      center: {lat: -17.771688, lng: -63.186997},
+      zoom: 14
+    });
+    infowindow = new google.maps.InfoWindow();
+  }
+
+  var position = {lat:-17.782698,lng:-63.164771};
+  var dato = "<div class='probando'>texto</div>";
+  var icon = {url:"{{ asset('/images/taxi.png') }}"};
+  var markers = [];
+  function putMarkerOnMap(position,icon,data){
+    var marker = new google.maps.Marker({position,map,icon});
+    markers.push(marker);
+    google.maps.event.addListener(marker,'click', function(){
+      infowindow.setContent(data);
+      infowindow.open(map,this);
     });
   }
+
+  function getData(){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        }
+    };
+    xmlhttp.open("GET", "{{ asset('api/getTaxis') }}", true);
+    xmlhttp.send();
+  }
+
+  // setInterval(getData, 4000);
+
+  //BORRAR los eventos antes de traer los datos del mapa
+  //var listenerHandle = google.maps.event.addListener(map, 'bounds_changed', function(){...});
+  //google.maps.event.removeListener(listenerHandle);
 </script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQpSqIQGBfgqvsTvSauHMW-5MzBfYAWcQ&callback=initMap">
