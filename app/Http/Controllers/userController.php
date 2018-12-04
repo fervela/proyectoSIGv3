@@ -164,12 +164,27 @@ class userController extends Controller
         $lngOrigen = $request->posicionLongitudeO;
         $lngDestino=$request->posicionLongitudeD;
         $latDestino=$request->posicionLatitudeD;
+
         $tokenPasajero=$request->tokenPasajero;
         $parrilla=$request->parrillaP;
-        $idpasajero=$request->idusuario;
-        $nombreP=$request->nombreP;
-        
+        //$idpasajero=$request->idusuario;
 
+        $nombreP=$request->nombreP;
+        $celular = $request->celularP;
+        $correro = $request->correoP;
+
+        $email = $nombreP . $celular . rand() ;
+        $user = new User();
+        $user->nombre = $nombreP;
+        $user->email = $email;
+        $user->password = '123';
+        $user->tipo = 'P';
+        $user->sexo = 'D';
+        $user->tokenfirebase = $tokenPasajero;
+        $user->save();
+        $users = User::All();
+        $user = $users->last();
+        $idpasajero = $user->id;
         ///obtener fecha y hora
         $fecha=date("Y-m-d");
         $hora=date("H:i:s");

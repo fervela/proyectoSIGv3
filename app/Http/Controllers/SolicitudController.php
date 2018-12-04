@@ -94,6 +94,9 @@ class SolicitudController extends Controller
     $idsolicitud=$request->idsolicitud;
     $idtaxi=$request->idtaxi;
     $idchofer = $request->idchofer;
+    $latitud = $request->latitud;
+    $longitud = $request->longitud;
+
     $hora=date("HH:mm");
     $insertar_solicitud_taxi=DB::select("INSERT INTO solicitud_taxi (taxi,solicitud,horainicio,estado,calificacion)
                                          VALUES ($idtaxi,$idsolicitud,'$hora','A',10)");
@@ -111,7 +114,9 @@ class SolicitudController extends Controller
             'sound' => 'defalut',
             ),
            'data' => array(
-            'aceptado'=>'yes'));
+            'aceptado'=>'yes',
+            'latChofer' => $latitud, ' lngChofer' => $longitud
+            ));
 
         define('GOOGLE_API_KEY', 'AIzaSyCNnbFGd4lcF-V9b45IWsWpYav5faI3dJI');
 

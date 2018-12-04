@@ -121,23 +121,24 @@ class UbicacionController extends Controller
         $longitud = $request->longitud;
         $tokenP = $request->tokenPasajero;
 
-        $consulta = DB::select("SELECT taxis.id
+        $consulta = DB::select("SELECT taxis.id,taxi.estado
                                 FROM users,chofer_taxi,taxis
                                 WHERE chofer_taxi.taxi = taxis.id AND
                                       chofer_taxi.chofer = users.id AND
                                                                     
                                       users.id = $idusuario ");//chofer_taxi.fechafin > CURDATE() AND
         
-        $id = 0;
+        $idtaxi = 0;
+        $estado = 'O';
         foreach ($consulta as $key => $row) {
-            $id = $row->id;
-            
+            $idtaxi = $row->id;
+            $estado = $row->estado;
         }
 
         $ubicacion_taxi = new Ubicacion();
         $ubicacion_taxi->latitud = $latitud;
         $ubicacion_taxi->longitud = $longitud;
-        $ubicacion_taxi->taxi = $id;
+        $ubicacion_taxi->taxi = $idtaxi;
         $ubicacion_taxi->velocidad = "50km/h";
         $ubicacion_taxi->save();
 
