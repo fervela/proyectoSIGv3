@@ -102,7 +102,7 @@ class userController extends Controller
     }
 
     //Para el registro del pasajero
-    public function registrarPasajero( Request $request){
+    public function registrarPasajero(Request $request){
 
         $nombre = $request->nombre;
         $email = $request->email;
@@ -193,13 +193,24 @@ class userController extends Controller
                                                 taxis.nasiento,taxis.npuerta,taxis.parilla,taxis.placa,taxis.tipo,
                                                 users.id as iduser,users.nombre,users.nlicencia,users.sexo,users.telefono,users.tokenfirebase,
                                                 ubicacions.latitud,ubicacions.longitud
+                                        FROM taxis,chofer_taxi,users,ubicacions
+                                        WHERE chofer_taxi.taxi = taxis.id AND
+                                              chofer_taxi.chofer = users.id AND
+                                              ubicacions.taxi = taxis.id AND
+                                              taxis.estado = 'D';");
+                                        /*
+                                        SELECT taxis.id as idtaxi,taxis.aire,taxis.anio,taxis.color,taxis.modelo,taxis.marca,
+                                                taxis.nasiento,taxis.npuerta,taxis.parilla,taxis.placa,taxis.tipo,
+                                                users.id as iduser,users.nombre,users.nlicencia,users.sexo,users.telefono,users.tokenfirebase,
+                                                ubicacions.latitud,ubicacions.longitud
+
                                         FROM users,taxis,chofer_taxi,ubicacions
+
                                         WHERE chofer_taxi.taxi = taxis.id AND 
                                                 chofer_taxi.chofer = users.id AND
                                                 ubicacions.taxi = taxis.id AND
-                                                chofer_taxi.estado = 'D'");
-
-        
+                                                chofer_taxi.estado = 'D'
+                                        */
         $disMen = 99999999999999999;
         $chofer = null;
         $token = "";
@@ -259,6 +270,6 @@ class userController extends Controller
             return response()->json(["respuesta"=>"no"]);
           }
 
+    }
 
-  }
 }
