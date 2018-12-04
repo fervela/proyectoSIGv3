@@ -28,6 +28,7 @@ class CreateTaxisTable extends Migration
             $table->text('foto');
             $table->unsignedInteger('propietario');
             $table->char('estado',1);
+            $table->string('condicion')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

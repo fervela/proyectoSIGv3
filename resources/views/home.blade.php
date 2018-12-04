@@ -252,13 +252,11 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MENU</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Propietario</span></a></li>
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Taxi</span></a></li>
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Chofer</span></a></li>
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Solicitudes</span></a></li>
+                <li class="active"><a href="{{ route('Propietario.index') }}"><i class="fa fa-link"></i> <span>Propietario</span></a></li>
+                <li class="active"><a href="{{ route('Taxi.index') }}"><i class="fa fa-link"></i> <span>Taxi</span></a></li>
+                <li class="active"><a href="{{ route('Chofer.index') }}"><i class="fa fa-link"></i> <span>Chofer</span></a></li>
                 <li class="active"><a href="{{ route('visualizarMapa.index') }}"><i class="fa fa-link"></i> <span>Visualizacion de Mapa</span></a></li>
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Bitacora</span></a></li>
-
+              
                 <!--<li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
                         <span class="pull-right-container">
