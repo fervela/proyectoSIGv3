@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Ubicacion;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use DB;
+
 class UbicacionController extends Controller
 {   
 
@@ -117,8 +119,9 @@ class UbicacionController extends Controller
         $idusuario = $request->idusuario;
         $latitud = $request->latitud;
         $longitud = $request->longitud;
+        $tokenP = $request->tokenPasajero;
 
-        $consulta = DB::select("SELECT taxis.id,chofer_taxi.estado
+        $consulta = DB::select("SELECT taxis.id
                                 FROM users,chofer_taxi,taxis
                                 WHERE chofer_taxi.taxi = taxis.id AND
                                       chofer_taxi.chofer = users.id AND
@@ -126,10 +129,9 @@ class UbicacionController extends Controller
                                       users.id = $idusuario ");//chofer_taxi.fechafin > CURDATE() AND
         
         $id = 0;
-        $estado = 'O';
         foreach ($consulta as $key => $row) {
             $id = $row->id;
-            $estado = $row->estado;
+            
         }
 
         $ubicacion_taxi = new Ubicacion();
@@ -139,21 +141,13 @@ class UbicacionController extends Controller
         $ubicacion_taxi->velocidad = "50km/h";
         $ubicacion_taxi->save();
 
-        if($estado === 'O'){
-            $consulta = DB::select("SELECT users.*
-                                    FROM solicitud_taxi,solicituds,users
-                                    WHERE solicituds.id = solicitud_taxi.solicitud AND
-                                          solicituds.pasajero = users.id AND
-                                          solicitud_taxi.taxi = $id");
-                $token_pasajero = '';
-            foreach ($consulta as $key => $row) {
-                $token_pasajero = $row->tokenfirebase;
-            }
+        
+        if($tokenP !== 'no'){
 
             $url = 'https://fcm.googleapis.com/fcm/send';
 
 
-            $fields = array('to' => $token_pasajero ,
+            $fields = array('to' => $tokenP ,
                'notification' => array(
                 'body' => 'Bienvenido Alex',
                 'title' => 'Alex Dominguez',
@@ -181,6 +175,7 @@ class UbicacionController extends Controller
 
         }
 
+        
 
         return response()->json(["respuesta" => "ok"]);
         

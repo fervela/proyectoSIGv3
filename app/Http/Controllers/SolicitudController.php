@@ -98,9 +98,7 @@ class SolicitudController extends Controller
     $insertar_solicitud_taxi=DB::select("INSERT INTO solicitud_taxi (taxi,solicitud,horainicio,estado,calificacion)
                                          VALUES ($idtaxi,$idsolicitud,'$hora','A',10)");
     
-    DB::select("UPDATE chofer_taxi 
-                                SET estado='O'
-                                WHERE chofer=$idchofer AND taxi=$idtaxi");
+    DB::select("UPDATE taxis SET estado='O' WHERE id=$idtaxi");
      //-------------------------------------------------------------------------------------------------
         try {
 
